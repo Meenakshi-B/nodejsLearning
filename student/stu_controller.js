@@ -1,30 +1,31 @@
 //const User = require('./stu_model');
 const service = require("./stu_Service")
+var wrapper = require('./wrapper')
 module.exports.delete_student = function (req, res) {
 
   var student_id = req.params.id;
 
-  service.delete_student(student_id, function (deleted_student) {
+  service.delete_student(student_id, function (delete_student) {
+        var student_id = req.params.id;
 
-
-    if (detail_id.errors) {
+    if (delete_student.errors) {
       res.status(400).send({
         status: wrapper.FailureStatus,
         code: wrapper.FailureCode,
-        result: deleted_student.message
+        result: delete_student.message
       });
     } else
       res.status(200).send({
         status: wrapper.SuccessStatus,
         code: wrapper.SuccessCode,
-        result: deleted_student
+        result: delete_student
       });
   });
 }
 
 module.exports.create_student = function (req, res) {
-  var testapp=res.body;
-	
+  var testapp=req.body;
+	console.log("data--------------->",testapp)
 	service.create_student(testapp , function(studentdata) {
 		if (errors) {
       res.status(400).send({
@@ -38,12 +39,13 @@ module.exports.create_student = function (req, res) {
         code: wrapper.SuccessCode,
         result: studentdata
       });
-  });
-}
+  }); console.log(" cntrl to service");
+} 
 
 module.exports.findbyid_student = function (req, res) {
-	service.findbyid_student (student_data , function(student_id) {
-		if (errors) {
+  var student_id = req.params.id;
+	service.findbyid_student (student_id , function(studentdata) {
+		if (student_id.error) {
       res.status(400).send({
         status: wrapper.FailureStatus,
         code: wrapper.FailureCode,
@@ -53,26 +55,44 @@ module.exports.findbyid_student = function (req, res) {
       res.status(200).send({
         status: wrapper.SuccessStatus,
         code: wrapper.SuccessCode,
-        result: student_id
+        result: studentdata
       });
   });
 }
   
   module.exports.update_student = function (req,res){
-	  service.update_student(updatestudent,function(updated_student) {
-		  if (errors) {
+    var testapp=req.body;
+	  service.update_student(testapp,function(update_student) {
+		  if (update_student.error) {
       res.status(400).send({
         status: wrapper.FailureStatus,
         code: wrapper.FailureCode,
-        result: updated_student.message
+        result: update_student.message
       });
     } else
       res.status(200).send({
         status: wrapper.SuccessStatus,
         code: wrapper.SuccessCode,
-        result: updated_student
+        result: update_student
       });
   });
 }
-		  
 		
+
+module.exports.getall_students = function (req, res) {
+  service.getall_students(function(all_students) {
+    if (all_students.errors) {
+      res.status(400).send({
+        status: wrapper.FailureStatus,
+        code: wrapper.FailureCode,
+        result:all_students.message
+      });
+    } else{
+      res.status(200).send({
+        status: wrapper.SuccessStatus,
+        code: wrapper.SuccessCode,
+        result: all_students
+      });
+    }
+  });
+}	
