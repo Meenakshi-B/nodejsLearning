@@ -8,17 +8,17 @@ module.exports.create_Order = function (create_Order, callback)
     var create_query = sqlQuery._properties.create_Order;
     sequelize.query(create_query,{
         replacements: {
-        //    id : create_Order.id,
+        // 
             bill : create_Order.bill,
             customername : create_Order.customername,
-            customercontact : create_Order.customercontact,
+            ,
             menu : create_Order.menu,
-            addressOne : create_Order.addressOne
+    
         },
         type : sequelize.QueryTypes.INSERT,
         model : models.Order
-    }).then(function(Orderdata) {
-        callback(Orderdata);
+    }).then(function(Order) {
+        callback(Order);
     });
 }
 module.exports.update_Order = function(update_Order,callback) {
@@ -40,11 +40,11 @@ module.exports.update_Order = function(update_Order,callback) {
         });
 }
 
-module.exports.delete_Order = function(Order_id,callback) {
+module.exports.delete_Order = function(_id,callback) {
     var delete_query = sqlQuery._properties.delete_Order;
     sequelize.query(delete_query, {
       replacements: {
-          id: Order_id
+          id: _id
       },
       type : sequelize.QueryTypes.DELETE,
       model: models.Order
@@ -69,7 +69,7 @@ module.exports.delete_Order = function(Order_id,callback) {
       },
       type : sequelize.QueryTypes.SELECT,
       model: models.Order
-    }).then(function(Orderdata) {
-          callback(Orderdata);
+    }).then(function(Order) {
+          callback(Order);
       });
   } 
