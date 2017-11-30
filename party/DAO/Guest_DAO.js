@@ -8,11 +8,13 @@ module.exports.create_Guest = function (create_Guest, callback)
     sequelize.query(create_query,{
         replacements: {
         
-            Guestname : create_Guest.bill,
-            customername : create_Guest.customername,
-            customercontact : create_Guest.customercontact,
-            menu : create_Guest.menu,
-            addressOne : create_Guest.addressOne
+            Guestname : create_Guest.Guestname,
+            
+            email:create_Guest.email,
+
+            password: create_Guest.password
+          
+          
         },
         type : sequelize.QueryTypes.INSERT,
         model : models.Guest
@@ -24,13 +26,12 @@ module.exports.update_Guest = function(update_Guest,callback) {
     var update_query = sqlQuery._properties.update_Guest;
     sequelize.query(update_query, {
         replacements: {
-            id : update_Guest.id,
-            bill : update_Guest.bill,
-            customername : update_Guest.customername,
-            customercontact : update_Guest.customercontact,
-            menu : update_Guest.menu,
-            addressOne : update_Guest.addressOne
+            Guestname : create_Guest.bill,
+            
+            email:create_Guest.email,
 
+            password: create_Guest.password
+          
         }, type : sequelize.QueryTypes.INSERT,
         model : models.Guest
     })

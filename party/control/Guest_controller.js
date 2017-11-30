@@ -3,6 +3,7 @@ const crypto = bluebird.promisifyAll(require('crypto'));
 const nodemailer = require('nodemailer');
 const graph = require('fbgraph');
 const passport = require('passport');
+const User = require('../models/Guest_model');
 var jsonwebtoken = require("jsonwebtoken");
 var winston = require('winston')
 const service = require("../services/Guest_service")
@@ -15,13 +16,12 @@ exports.logout = (req, res) => {
     })
   };
   exports.postSignup = (req, res, next) => {
-  
-    const user = new User({
+    var user = new User({
       email: req.body.email,
       password: req.body.password
     });
   
-    User.findOne({ email: req.body.email }, (err, existingUser) => {
+    user.findOne({ email: req.body.email }, (err, existingUser) => {
       if (err) { return next(err); }
       if (existingUser) {
         return res.json({ message: "Already email exists" })
@@ -60,13 +60,6 @@ exports.logout = (req, res) => {
     })(req, res, next);
   };
   
-  
-
-
-
-
-
-
 
 
 module.exports.delete_Guest = function (req, res) {
@@ -118,7 +111,7 @@ module.exports.delete_Guest = function (req, res) {
           });
           }
     
-          module.exports.create_Guest = function(req,res) {
+          exports.create_Guest = function(req,res) {
             var testapp=req.body;
             console.log("trans data ----->",testapp)
             service.create_Guest(testapp , function(Guestdata){
@@ -138,5 +131,17 @@ module.exports.delete_Guest = function (req, res) {
   }); console.log(" cntrl to service");
 } 
             
-            
+module.exports.loginRequired = function (req, res, next) {
+    if (req.user) {
+      next();
+    } else {
+      return res.status(401).json({
+        status: "Failed",
+        code: "404",
+        result: {
+          message: wrapper.JWTAuth
+        }
+      })
+    }
+  }            
 

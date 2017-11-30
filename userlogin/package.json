@@ -6,12 +6,12 @@
     "start": "node main"
   },
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.14.2",
     "env": "0.0.2",
     "express": "^4.13.3",
     "morgan": "^1.6.1",
     "mysql": "^2.10.2",
-    "passport-local-sequelize": "^0.8.0",
     "prop-types": "^15.6.0",
     "properties-reader": "0.0.15",
     "sequelize": "^3.17.3"
