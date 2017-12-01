@@ -2,12 +2,10 @@ var express = require("express");
 var http = require("http");
 var path = require("path");
 var models = require("./models");
-var passport = require('passport')
-var session = require('express-session')
 var router = require("./routers/Guest_router");
-var confJWT = require('./config/config.json').jwt;
 var auth = require('./auth/auth.js')();
 var jwt = require('jwt-simple');
+var confJWT = require('./config/config.json').jwt;
 var logger = require("morgan");
 //var env = require('dotenv').load()
 var bodyParser = require('body-parser');
@@ -64,7 +62,7 @@ app.post('/auth/login', function(req, res) {
 
 
 app.use("/",express.static(clientPath));
-app.use("/api", router);
+app.use("/api",auth.authenticate(), router);
 app.all('*', function (req, res) { 
 });
 

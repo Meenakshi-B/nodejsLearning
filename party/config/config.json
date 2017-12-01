@@ -1,1 +1,1 @@
-{"database":{"password":"87MeenuVivek","dialect":"mysql","name":"ios","host":"localhost","username":"root"}} 
+{"database":{"password":"87MeenuVivek","dialect":"mysql","name":"ios","host":"localhost","username":"root"},"jwt":{"jwtSecret":"MyS3cr3tK3Y","jwtSession":{"session":false}}} 

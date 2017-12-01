@@ -15,53 +15,7 @@ exports.logout = (req, res) => {
       message: wrapper.LoggedOut
     })
   };
-  exports.postSignup = (req, res, next) => {
-    var user = new User({
-      email: req.body.email,
-      password: req.body.password
-    });
   
-    user.findOne({ email: req.body.email }, (err, existingUser) => {
-      if (err) { return next(err); }
-      if (existingUser) {
-        return res.json({ message: "Already email exists" })
-      }
-      user.save((err) => {
-        winston.info('saved')
-        if (err) { res.json({ message: "Failed" }) }
-        req.logIn(user, (err) => {
-          if (err) {
-            res.json({ message: "Failed" })
-          }
-          res.json({ message: "Account Created Successfully" })
-        });
-      });
-    });
-  };
-  
-  exports.postLogin = (req, res, next) => {
-  
-    passport.authenticate('local', (err, user, info) => {
-      if (err) { return res.json({ message: "Error Logging In" }) }
-      if (!user) {
-        return res.json({ message: "You are not a user" })
-      }
-      req.logIn(user, (err) => {
-        if (err) { res.json({ message: "Error Logging In" }) }
-        res.json({
-          status: wrapper.SuccessStatus,
-          code: wrapper.SuccessCode,
-          result: {
-            token: jsonwebtoken.sign({ email: user.email, _id: user._id }, 'RESTFULAPIs'),
-            user: user.toJSON()
-          }
-        });
-      });
-    })(req, res, next);
-  };
-  
-
-
 module.exports.delete_Guest = function (req, res) {
     
       var Guest_id = req.params.id;
@@ -69,8 +23,8 @@ module.exports.delete_Guest = function (req, res) {
       service.delete_Guest(Guest_id, function (delete_Guest) {
             var Guest_id = req.params.id;
     
-        if (delete_Guest.errors) {
-            console.log("error occured",errors)
+        if (Guest_id.error) {
+            console.log("error occured")
            
         } else
         console.log("deleted",delete_Guest)
@@ -102,8 +56,8 @@ module.exports.delete_Guest = function (req, res) {
       }
               
       
-      module.exports.getall_Guests = function (req, res){
-        service.getall_Guests(function(all_Guests) {
+      module.exports.getall_Guest = function (req, res){
+        service.getall_Guest(function(all_Guests) {
           if (all_Guests.errors) {
             console.log("error occured",errors)
           } else

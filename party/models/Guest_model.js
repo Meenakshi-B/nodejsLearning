@@ -6,7 +6,7 @@ var sequelize = new Sequelize(config.name, config.username, config.password, con
 
 
 module.exports = function(sequelize, Sequelize) {
-    var Guestdata = passportLocalSequelize.define("guest",{
+    var Guestdata = sequelize.define("guest",{
       Guestname: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -20,10 +20,7 @@ module.exports = function(sequelize, Sequelize) {
     type: Sequelize.STRING,
     validate: {
       isEmail: true
-    }},
-  password: {
-    type: Sequelize.STRING,
-  }} ,{
+    }}},{
     createdAt: false,
     updatedAt: false,
     freezeTableName:true

@@ -52,8 +52,8 @@ module.exports.delete_Guest = function(_id,callback) {
           callback();
       });
   } 
-  module.exports.getall_Guests = function(callback) {
-    var get_all_query = sqlQuery._properties.getall_Guests;
+  module.exports.getall_Guest = function(callback) {
+    var get_all_query = sqlQuery._properties.getall_Guest;
     sequelize.query(get_all_query, {
       type : sequelize.QueryTypes.SELECT,
       model: models.Guest
@@ -62,14 +62,14 @@ module.exports.delete_Guest = function(_id,callback) {
       });
   }
   module.exports.findbyid_Guest = function(Guest_id,callback) {
-    var search_query = sqlQuery._properties.search_Guest;
+    var search_query = sqlQuery._properties.findbyid_Guest;
     sequelize.query(search_query, {
       replacements: {
            id:Guest_id
       },
       type : sequelize.QueryTypes.SELECT,
       model: models.Guest
-    }).then(function(Guest) {
-          callback(Guest);
+    }).then(function(Guestdata) {
+          callback(Guestdata);
       });
   } 

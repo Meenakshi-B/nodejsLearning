@@ -27,8 +27,8 @@ module.exports.findbyid_Guest = function (Guest_id, callback) {
 } 
 
 
-module.exports.getall_Guests = function (callback) {
-    Guest_dao.getall_Guests(function (all_Guests) {
+module.exports.getall_Guest= function (callback) {
+    Guest_dao.getall_Guest(function (all_Guests) {
         callback(all_Guests);
     })
 }

@@ -4,10 +4,10 @@ var models = require("../models");
 var config = require('../config/config.json').jwt;
 var ExtractJwt = passportJWT.ExtractJwt;  
 var Strategy = passportJWT.Strategy;  
-var params = {  
-    secretOrKey: config.jwtSecret,
-    jwtFromRequest: ExtractJwt.fromAuthHeader()
-};
+var params = {}; 
+    
+    params.jwtFromRequest = ExtractJwt.fromAuthHeader()
+    params.secretOrKey = config.jwtSecret;
 
 module.exports = function() {  
     var strategy = new Strategy(params, function(payload, done) {
