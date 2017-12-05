@@ -35,7 +35,7 @@ app.use(function(req, res, next) {
       var password = req.body.password;
       MongoClient.connect(url, function(err, db) {
         if (err) throw err;
-      db.collection("design").findOne({ where: {username: username, password: password} }).then(function(data) {
+      db.collection("design").findOne( {username: username, password: password}).then(function(data) {
         console.log(data);
         var user = data;
         if(user) {
@@ -45,7 +45,7 @@ app.use(function(req, res, next) {
         var token = jwt.encode(payload, confJWT.jwtSecret);
         res.json({
         token: token,
-        user: user.toJSON()
+        user: JSON.stringify()
         });
         } else {
         res.sendStatus(401);
@@ -59,7 +59,7 @@ app.use(function(req, res, next) {
   
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use("/api",auth.authenticate(), router);
+app.use("/api", router);
 app.all('*', function (req, res) { 
 });
 

@@ -7,8 +7,10 @@ const designerschema = new mongoose.Schema({
 
 });
 
+
+
     
 
-var design = mongoose.model('design',designerschema,'design')
-module.exports = design;
-return design;
+var Users = mongoose.model('design',designerschema,'design')
+module.exports.Users;
+return Users;
