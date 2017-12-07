@@ -1,5 +1,8 @@
 const service = require("../services/user_services");
 var MongoClient = require('mongodb').MongoClient;
+var mongoose = require("mongoose");
+mongoose.Promise = require('bluebird');
+var models = require("../models/user_model");
 var url = "mongodb://localhost:27017/node";
 //var dateFormat = require('dateformat');
 var moment = require('moment');
@@ -42,14 +45,17 @@ module.exports.dobof_user = function (req, res) {
       console.log("error occured", errors)
 
     } else {
-      var date = userdata.dob
-      var m = moment(date, ' MMM ');
+      var dat = userdata.dob
+      var date = "2017-12-06T09:30:34.277Z"
+      var month = moment(dat).format('MMMM')
+    
+      
       // Use moment(Date) if your input is a JS Date
       //var m = moment(date);
       // m.set({h: 00, m: 00});
-      console.log(m.format());
-      console.log(m.toDate().toString());
-      console.log("dob---->", m)
+      //console.log(date.format());
+     /// console.log(date.toDate().toString());
+      console.log("dob---->", month)
       res.send(moment(date, ''));
       console.log(moment("2013-02-01", 'dddd').format())
     }
@@ -89,20 +95,19 @@ module.exports.datadob_users = function (req, res) {
     } else
       var fromDate = "1992-02-01"
     var toDate = "1992-02-28"
-    MongoClient.connect(url, function (err, db) {
-      if (err) throw err;
-      db.collection("date").find({ "dob": { 
-         $gte: new Date("1992-02-01"), 
-         $lte: new Date("1992-02-28")
-        } }).then(function(dobdata) {
+    //mongoose.connect("mongodb://localhost:27017/node")
+      models.find({ "createdate": {
+         "$gte" : new Date("2017-12-06T10:03:23.958+05:30"), 
+         "$lte" : new Date("2017-12-06T09:30:34.277Z")
+        }}) .then(function(dobdata) {
           console.log("---->",dobdata);
         res.send(dobdata);
       })
-    })
+  })
 
+  
+  };
 
-  });
-}
 
 module.exports.update_user = function (req, res) {
   var testapp = req.body;
