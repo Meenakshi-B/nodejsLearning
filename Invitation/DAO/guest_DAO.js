@@ -9,7 +9,8 @@ module.exports.create_guest = function (create_guest, callback) {
         } else {console.log("<<<no err>>>>");}
          console.log("------>created db")
         
-        callback(guestdata);
+
+         callback(guestdata);
         
     })
 }
@@ -51,7 +52,7 @@ module.exports.getall_guests = function (callback) {
      callback(err);
    }
    else {
-     callback(all_guests);
+    callback(all_guests)
 
    }
  });

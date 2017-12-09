@@ -8,4 +8,4 @@ const guestschema = new mongoose.Schema({
 });
 
 var guestdata = mongoose.model('invite',guestschema,'invite')
-module.exports = guestdata;
+module.exports = guestdata; 

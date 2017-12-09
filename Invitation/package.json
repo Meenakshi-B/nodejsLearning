@@ -17,6 +17,7 @@
     "mongoose-auto-increment": "^5.0.1",
     "morgan": "^1.6.1",
     "mysql": "^2.10.2",
+    "nodemailer": "^4.4.1",
     "passport-jwt": "^2.2.1",
     "passport-local-sequelize": "^0.8.0",
     "prop-types": "^15.6.0",

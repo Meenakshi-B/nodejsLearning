@@ -1,5 +1,7 @@
+const tls = require('tls');
 const service = require("../services/guest_service")
 var nodemailer = require('nodemailer')
+var async = require('async')
 
 module.exports.delete_guest = function (req, res) {
     
@@ -51,9 +53,24 @@ module.exports.delete_guest = function (req, res) {
           if (all_guests.errors) {
             console.log("error occured",errors)
           } else
-            res.send(all_guests)
-          });
-          }
+          async.forEachOf(all_guests, function (guestdata, guest) {
+            console.log("Student mail id  - -----> ", guestdata.email);
+    
+            var mailOptions = {
+                from: 'b.meenakshi.10decoders@gmail.com',
+                to: guestdata.email,
+                subject: 'invite',
+                text: 'come for function'
+            };
+    
+            mail.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+          })
+          })
     
           module.exports.create_guest = function(req,res) {
             var testapp=req.body;
@@ -72,17 +89,22 @@ module.exports.delete_guest = function (req, res) {
                   console.log("error occured",error)
               
             } else{
-              
+            
+              process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"; 
             var mail = nodemailer.createTransport({
               service: 'gmail',
               auth: {
-                  user: 'meenu7592@gmail.com',
+                  user: 'b.meenakshi.10decoders@gmail.com',
                   pass: '87MeenuVivek'
-              } 
+              }
+            })
+              tls: {
+                rejectUnauthorized: false
+            } 
 
-          }) 
+          
           var mailOptions = {
-            from: 'meenu7592@gmail.com',
+            from: 'b.meenakshi.10decoders@gmail.com',
             to:guestdata.email,
             subject: 'hai veka',
             text: 'can v go to dinner out '
@@ -98,5 +120,5 @@ module.exports.delete_guest = function (req, res) {
 
                 }    });
       
-        }
+        };
         
