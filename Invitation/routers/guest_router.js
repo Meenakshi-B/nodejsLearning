@@ -1,6 +1,6 @@
 var express =require("express");
 var router = express.Router();
-var guest_controller= require("../control/guest_controller");
+var guest_controller = require("../control/guest_controller");
 router.post('/create_guest',guest_controller.create_guest);
 router.put('/update_guest/',guest_controller.update_guest);
 router.get("/getall_guests",guest_controller.getall_guests);

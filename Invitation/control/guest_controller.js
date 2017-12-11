@@ -53,15 +53,27 @@ module.exports.delete_guest = function (req, res) {
           if (all_guests.errors) {
             console.log("error occured",errors)
           } else
+          process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"; 
+          var mail = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'b.meenakshi.10decoders@gmail.com',
+                pass: '87MeenuVivek'
+            }
+          })
+            tls: {
+              rejectUnauthorized: false
+          } 
+
           async.forEachOf(all_guests, function (guestdata, guest) {
-            console.log("Student mail id  - -----> ", guestdata.email);
+            console.log("guest mail id  ------> ", guestdata.email);
     
             var mailOptions = {
                 from: 'b.meenakshi.10decoders@gmail.com',
                 to: guestdata.email,
                 subject: 'invite',
                 text: 'come for function'
-            };
+            }
     
             mail.sendMail(mailOptions, function (error, info) {
                 if (error) {
@@ -71,6 +83,8 @@ module.exports.delete_guest = function (req, res) {
                 }
           })
           })
+        });
+    }
     
           module.exports.create_guest = function(req,res) {
             var testapp=req.body;
@@ -120,5 +134,5 @@ module.exports.delete_guest = function (req, res) {
 
                 }    });
       
-        };
+            }
         
